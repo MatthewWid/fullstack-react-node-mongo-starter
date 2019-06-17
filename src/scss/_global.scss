@@ -1,0 +1,19 @@
+body {
+	background-color: $bg-dark;
+	color: $text-bright;
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 40px;
+	background-color: $bg-primary;
+	color: $text-grey;
+
+	.header__logo {
+		font-weight: bold;
+	}
+	.header__icon {
+		font-size: 1.2em;
+	}
+}

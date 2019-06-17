@@ -1,38 +1,11 @@
-const path = require("path");
-const ManifestPlugin = require("webpack-manifest-plugin");
+require("dotenv").config({path: "./variables.env"});
+const webpackMerge = require("webpack-merge");
+const common = require("./config/webpack.common.config.js");
 
-const config = {
-	mode: "development",
-	entry: {
-		"home": path.resolve(__dirname, "./src/home.js"),
-		"profile": path.resolve(__dirname, "./src/profile.js")
-	},
-	output: {
-		path: path.resolve(__dirname, "./dist"),
-		filename: "[name].[hash].js",
-	},
-	module: {
-		rules: [
-			{
-				test: /\.(js|jsx)$/,
-				exclude: /node_modules/,
-				use: {
-					loader: "babel-loader"
-				}
-			}
-		]
-	},
-	optimization: {
-		splitChunks: {
-			chunks: "initial"
-		}
-	},
-	plugins: [
-		new ManifestPlugin({
-			fileName: path.resolve(__dirname, "./src/webpack.manifest.json"),
-			publicPath: "./public/"
-		})
-	]
+const envs = {
+	development: "dev",
+	production: "prod"
 };
-
-module.exports = config;
+const env = envs[process.env.NODE_ENV || "development"];
+const envConfig = require(`./config/webpack.${env}.config.js`);
+module.exports = webpackMerge(common, envConfig);
