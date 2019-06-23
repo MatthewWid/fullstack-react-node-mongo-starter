@@ -1,14 +1,5 @@
 body {
-	background-color: $bg-dark;
+	background-color: $bg-light;
 	font-family: "Arial", sans-serif;
-	color: $text-bright;
+	color: $text-grey-dark;
 }
-
-@import "./sections/_UserPanel.scss";
-@import "./sections/_PostFeed.scss";
-@import "./sections/_SiteInfo.scss";
-@import "./sections/content.scss";
-
-@import "./components/_Header.scss";
-@import "./components/_PostForm.scss";
-@import "./components/_Post.scss";
