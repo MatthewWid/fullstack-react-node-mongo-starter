@@ -1,17 +1,17 @@
+const path = require("path");
+
 // Environment Variables
 require("dotenv").config({
-	path: "./variables.env"
+	path: path.resolve(__dirname, "..", "./variables.env")
 });
 
 // Imports
-const path = require("path");
 const mongoose = require("mongoose");
 const express = require("express");
 const serveFavicon = require("serve-favicon");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const bodyParser = require("body-parser");
-const passport = require("passport");
 const routes = require("./middlewares/routes.js");
 const getManifest = require("./middlewares/getManifest.js");
 const errorHandler = require("./middlewares/errorHandler.js");
@@ -27,8 +27,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 const {connection: db} = mongoose;
 
 // Models
-require("./models/User.js");
-require("./models/Post.js");
+// ...
 
 // Sessions
 app.use(session({
@@ -40,19 +39,11 @@ app.use(session({
 	})
 }));
 
-// Authentication
-const userModel = mongoose.model("User");
-passport.use(userModel.createStrategy());
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Static Files
 app.use(express.static(PUBDIR));
 
 // Favicon
-app.use(serveFavicon(path.join(PUBDIR, "./images/logo/", "./favicon.ico")));
+// app.use(serveFavicon(path.join(PUBDIR, "./images/", "./favicon.ico")));
 
 // Body Parser
 app.use(bodyParser.json());
