@@ -7,10 +7,18 @@ require("dotenv").config({
 const path = require("path");
 const mongoose = require("mongoose");
 const express = require("express");
+const serveFavicon = require("serve-favicon");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const bodyParser = require("body-parser");
+const passport = require("passport");
+const routes = require("./middlewares/routes.js");
 const getManifest = require("./middlewares/getManifest.js");
-const routes = require("./routes");
+const errorHandler = require("./middlewares/errorHandler.js");
 const app = express();
+
+// Constants
+const PUBDIR = path.resolve(__dirname, "..", "./public/");
 
 // Database
 mongoose.connect(process.env.DATABASE_URL, {
@@ -19,10 +27,32 @@ mongoose.connect(process.env.DATABASE_URL, {
 const {connection: db} = mongoose;
 
 // Models
-require("./models/Post");
+require("./models/User.js");
+require("./models/Post.js");
+
+// Sessions
+app.use(session({
+	secret: "itsfreerealestate",
+	resave: false,
+	saveUninitialized: true,
+	store: new MongoStore({
+		mongooseConnection: db
+	})
+}));
+
+// Authentication
+const userModel = mongoose.model("User");
+passport.use(userModel.createStrategy());
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Static Files
-app.use(express.static(path.join(__dirname, "..", "./public/")));
+app.use(express.static(PUBDIR));
+
+// Favicon
+app.use(serveFavicon(path.join(PUBDIR, "./images/logo/", "./favicon.ico")));
 
 // Body Parser
 app.use(bodyParser.json());
@@ -38,7 +68,10 @@ app.set("view engine", "pug");
 app.use(getManifest());
 
 // Routes
-app.use("/", routes);
+app.use("/", routes());
+
+// Error Handling
+app.use(errorHandler);
 
 // Port
 app.set("port", process.env.PORT || 80);
