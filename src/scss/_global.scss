@@ -1,5 +1,26 @@
 body {
-	background-color: $bg-light;
+	background-color: $bg-blue;
 	font-family: "Arial", sans-serif;
-	color: $text-grey-dark;
+	color: $text-grey-light;
+}
+
+.container {
+	background-color: $bg-dark;
+	border-bottom: 10px solid $border-grey;
+}
+
+.content {
+	max-width: 60%;
+	margin: 0 auto;
+	padding: 60px 0;
+
+	> * {
+		margin-bottom: 10px;
+	}
+	h1 {
+		font-size: 2rem;
+	}
+	b {
+		font-weight: bold;
+	}
 }

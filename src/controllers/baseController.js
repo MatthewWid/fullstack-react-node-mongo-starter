@@ -3,5 +3,5 @@ exports.indexPage = (req, res) => {
 };
 
 exports.ping = (req, res) => {
-	res.send("pong");
+	res.send("Hello world!");
 };
