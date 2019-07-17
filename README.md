@@ -34,13 +34,6 @@ Easily get up and running on a full-stack project and stop wasting time with boi
 4. Transpile code and start the server `npm run start` or `yarn start`.
 5. Visit your application `http://localhost:8080`.
 
-Clear out the template code for the welcome page:
-
-1. Delete the contents of the `App` component in `/src/js/components/App.js`.
-2. Delete `exports.ping` in `/src/controllers/baseController.js`.
-3. Delete `router.get("/ping" ...` in `/src/routes/api.js`.
-4. Delete the contents of `/src/scss/global.scss` and `/src/scss/_colours.scss`.
-
 To switch between development and production mode change the environment variable `NODE_ENV` in `variables.env` to `development` or `production` respectively.
 
 # Commands
@@ -82,10 +75,5 @@ To include a new CSS bundle use a `<link>` tag:
 		if manifest
 			...
 			link(rel="stylesheet" href=manifest["css/NAME.css"])
-
-## Code Placement
-
-Client-side JS source code should be in the `/src/js/` directory.  
-SASS/CSS source code should be in the `/src/scss/` directory.
 
 JS and CSS build artifacts will be created in the `/public/js/` and `/public/css/` directories respectively. Vendor modules (from `node_modules`) are split from the main bundle into a separate `vendor.js` chunk file that is included in every page.
