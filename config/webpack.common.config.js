@@ -6,8 +6,8 @@ const FixStyleOnlyEntirePlugin = require("webpack-fix-style-only-entries");
 const FILENAME = process.env.NODE_ENV === "development" ? "[name]" : "[name].[contenthash]";
 const PUBDIR = path.resolve(__dirname, "..", "./public/");
 const SRCDIR = path.resolve(__dirname, "..", "./src/");
-const SRCDIR_JS = path.join(SRCDIR, "./js/");
-const SRCDIR_SCSS = path.join(SRCDIR, "./scss/");
+const SRCDIR_JS = path.join(SRCDIR, "./client/js/");
+const SRCDIR_SCSS = path.join(SRCDIR, "./client/scss/");
 
 const config = {
 	entry: {
@@ -49,9 +49,11 @@ const config = {
 	},
 	plugins: [
 		new ManifestPlugin({
-			fileName: path.join(SRCDIR, "./webpack-manifest.json")
+			fileName: path.join(SRCDIR, "./server/webpack-manifest.json")
 		}),
-		new FixStyleOnlyEntirePlugin(),
+		new FixStyleOnlyEntirePlugin({
+			silent: true
+		}),
 		new MiniCssExtractPlugin({
 			filename: `${FILENAME}.css`
 		})

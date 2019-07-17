@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import axios from "axios";
 
 class App extends React.Component {
@@ -16,7 +16,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div className="content">
+			<div className="header">
 				<h1>You are now using the <b>Full-Stack React, Node, MongoDB and SASS</b> starter kit!</h1>
 				<p>If you are reading this then you have got everything set up correctly and are ready to get building!</p>
 				<button onClick={this.handleClick}>Click me to query the server!</button>

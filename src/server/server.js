@@ -2,7 +2,7 @@ const path = require("path");
 
 // Environment Variables
 require("dotenv").config({
-	path: path.resolve(__dirname, "..", "./variables.env")
+	path: path.resolve(__dirname, "../../", "./variables.env")
 });
 
 // Imports
@@ -18,7 +18,7 @@ const errorHandler = require("./middlewares/errorHandler.js");
 const app = express();
 
 // Constants
-const PUBDIR = path.resolve(__dirname, "..", "./public/");
+const PUBDIR = path.resolve(__dirname, "../../", "./public/");
 
 // Database
 mongoose.connect(process.env.DATABASE_URL, {

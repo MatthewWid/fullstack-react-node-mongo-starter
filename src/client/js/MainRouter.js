@@ -1,15 +1,15 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import App from "./App.js";
-import NotFound from "./NotFound.js";
+import Home from "./pages/Home.js";
+import NotFound from "./pages/NotFound.js";
 
-const Router = () => (
+const MainRouter = () => (
 	<BrowserRouter>
 		<Switch>
-			<Route path="/" component={App} exact></Route>
+			<Route path="/" component={Home} exact></Route>
 			<Route component={NotFound}></Route>
 		</Switch>
 	</BrowserRouter>
 );
 
-export default Router;
+export default MainRouter;
